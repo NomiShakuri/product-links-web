@@ -1,12 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const router= exports.router();
 const productRequestController = require('../controllers/productRequestController');
 const { verifyToken, isMyShopManager, isSiteAdmin } = require('../middlewares/authMiddleware');
-const 
 
 
 //מסלול לשליפת כל הבקשות
-router.get('/getAllRequests', verifyToken, isSiteAdmin, productRequestController.getAllRequests);
+router.get('/getAllRequests', verifyToken, isSiteAdmin , productRequestController.getAllRequests);
 
 // מסלול לשליפת בקשות לפי חנות  
 router.get('/getRequest/:shopId', verifyToken, isMyShopManager, productRequestController.getRequestByShopId);

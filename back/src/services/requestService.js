@@ -22,7 +22,7 @@ const getRequestById = async (requestId) => {
     }
 }
 
-const addRequest = async ({ userId, shopId, productName, content, type}) => {
+const addRequest = async ({ userId, shopId, productName, content}) => {
     try {
         const existingUser = await User.findById({ userId });
 
@@ -31,7 +31,7 @@ const addRequest = async ({ userId, shopId, productName, content, type}) => {
             return { status: 400, message: 'The shop or user does not exists' };
         }
         const status='notProcessed';
-        const newRequest = new ProductRequest({ userId, shopId, productName, content, status ,type});
+        const newRequest = new ProductRequest({ userId, shopId, productName, content, status });
         await newRequest.save();
         return { status: 200, message: 'Success', newRequest };
     } catch (error) {

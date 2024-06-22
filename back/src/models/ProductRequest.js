@@ -29,8 +29,7 @@ const productRequestSchema = new mongoose.Schema({
     createdAt: { 
         type: Date, 
         default: Date.nowc
-    },
-    type: { type: String, enum: Object.values(ProductRequestType), required: true }
+    }
 });
 
 const  ProductRequest= mongoose.model('ProductRequest',productRequestSchema);
