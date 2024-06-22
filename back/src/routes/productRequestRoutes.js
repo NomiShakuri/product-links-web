@@ -5,19 +5,19 @@ const { verifyToken, isMyShopManager, isSiteAdmin } = require('../middlewares/au
 
 
 //מסלול לשליפת כל הבקשות
-router.get('/getAllRequests',/* verifyToken, isSiteAdmin,*/ productRequestController.getAllRequests);
+router.get('/getAllRequests', verifyToken, isSiteAdmin, productRequestController.getAllRequests);
 
 // מסלול לשליפת בקשות לפי חנות  
-router.get('/getRequest/:shopId',/* verifyToken, isSiteAdmin,*/ productRequestController.getRequestByShopId);
+router.get('/getRequest/:shopId', verifyToken, isMyShopManager, productRequestController.getRequestByShopId);
 
 // מסלול להוספת בקשה
-router.post('/addRequest',/* verifyToken, isSiteAdmin, */productRequestController.addRequest);
+router.post('/addRequest', verifyToken, productRequestController.addRequest);
 
 //מסלול לעדכון סטטוס בקשה  
-router.put('/updateRequestStatus/:requestId',/* verifyToken, isMyShopManager,*/ productRequestController.updateRequestStatusById);
+router.put('/updateRequestStatus/:requestId', verifyToken, isMyShopManager, productRequestController.updateRequestStatusById);
 
 // מסלול למחיקת בקשה 
-router.delete('/deleteRequest/:requestId',/* verifyToken, isMyShopManager,*/ productRequestController.deleteRequestByIddeleteRequestById);
+router.delete('/deleteRequest/:requestId',verifyToken, isMyShopManager, productRequestController.deleteRequestByIddeleteRequestById);
 
 
 
