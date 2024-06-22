@@ -1,24 +1,24 @@
-const shopService = require('../services/shopService');
+const requestService = require('../services/requestService');
 
 //שליפת כל הבקשות
 const getAllRequests = async (req, res) => {
-//   try {
-//     const shops = await shopService.getAllShops();
-//     res.status(200).json(shops);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
+  try {
+    const requests = await requestService.getAllRequests();
+    res.status(200).json(requests);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
 }
 //  שליפת בקשות לפי חנות  
 const getRequestByShopId = async (req, res) => {
-  const shopId = req.params.shopId;
+  const requestId = req.params.requestId;
   try {
-    const shop = await shopService.getShopById(shopId);
-    if (!shop) {
-      return res.status(404).json({ message: 'Shop not found' });
+    const request = await requestService.getRequestById();
+    if (!request) {
+      return res.status(404).json({ message: 'request not found' });
     }
-    res.status(200).json(shop);
+    res.status(200).json(request);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -26,13 +26,13 @@ const getRequestByShopId = async (req, res) => {
 }
 // הוספת בקשה
 const addRequest = async (req, res) => {
-  const { name, shopManager, siteLink, numberOfLinks, availability, type} = req.body;
+  const { userId, shopId, productName, content, type} = req.body;
   try {
-      const newShop = await shopService.addShop({ name, shopManager, siteLink, numberOfLinks, availability, type });
-      if (newShop.status === 200) {
-          res.status(201).json({ message: 'Shop created successfully', shop: newShop.newShop });
+      const newRequest = await requestService.addRequest({ userId, shopId, productName, content, type });
+      if (newRequest.status === 200) {
+          res.status(201).json({ message: 'request created successfully' });
       } else {
-          res.status(newShop.status).json({ message: newShop.message });
+          res.status(newRequest.status).json({ message: newRequest.message });
       }
   } catch (err) {
       console.error(err.message);
@@ -41,14 +41,14 @@ const addRequest = async (req, res) => {
 };
 // עדכון סטטוס בקשה
 const updateRequestStatusById = async (req, res) => {
-  const { name, siteLink } = req.body;
-  const shopId = req.params.shopId;
+  const { status } = req.body;
+  const requestId = req.params.requestId;
   try {
-    const updatedShop = await shopService.updateShopById(shopId, {name,siteLink});
-    if (!updatedShop) {
-      return res.status(404).json({ message: 'Shop not found' });
+    const updatedRequest = await requestService.updateRequestStatus(requestId, {status});
+    if (!updatedRequest) {
+      return res.status(404).json({ message: 'Request not found' });
     }
-    res.status(200).json({message: 'Shop updated successfully',updatedShop});
+    res.status(200).json({message: 'Request updated successfully',updatedRequest});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -56,14 +56,14 @@ const updateRequestStatusById = async (req, res) => {
 }
 // מחיקת בקשה
 const deleteRequestById = async (req, res) => {
-  const shopId = req.params.shopId;
-  console.log(shopId);
+  const requestId = req.params.requestId;
+
   try {
-    const deletedShop = await shopService.deleteShopById(shopId);
-    if (!deletedShop) {
-      return res.status(404).json({ message: 'Shop not found' });
+    const deletedRequest = await requestService.deleteRequestById(requestId);
+    if (!deletedRequest) {
+      return res.status(404).json({ message: 'Request not found' });
     }
-    res.status(200).json({ message: 'Shop deleted successfully' });
+    res.status(200).json({ message: 'Request deleted successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
