@@ -26,9 +26,9 @@ const getRequestByShopId = async (req, res) => {
 }
 // הוספת בקשה
 const addRequest = async (req, res) => {
-  const { userId, shopId, productName, content, type} = req.body;
+  const { userId, shopId, productName, content} = req.body;
   try {
-      const newRequest = await requestService.addRequest({ userId, shopId, productName, content, type });
+      const newRequest = await requestService.addRequest({ userId, shopId, productName, content});
       if (newRequest.status === 200) {
           res.status(201).json({ message: 'request created successfully' });
       } else {
