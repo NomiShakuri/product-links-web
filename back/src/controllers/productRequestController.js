@@ -2,13 +2,13 @@ const shopService = require('../services/shopService');
 
 //שליפת כל הבקשות
 const getAllRequests = async (req, res) => {
-  try {
-    const shops = await shopService.getAllShops();
-    res.status(200).json(shops);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
-  }
+//   try {
+//     const shops = await shopService.getAllShops();
+//     res.status(200).json(shops);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
 }
 //  שליפת בקשות לפי חנות  
 const getRequestByShopId = async (req, res) => {

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const ProductRequestType = require('./ProductRequestType')
 
 const productRequestSchema = new mongoose.Schema({
-    userName: {
+    userId: {
          type: mongoose.Schema.Types.ObjectId, 
          ref: 'User', 
          required: true 
